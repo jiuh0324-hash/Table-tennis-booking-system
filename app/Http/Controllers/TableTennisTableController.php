@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\TableTennisTable;
 use Illuminate\Http\Request;
 
@@ -27,7 +25,6 @@ class TableTennisTableController extends Controller
         ]);
 
         TableTennisTable::create($validated);
-
         return redirect()->route('tables.index')
             ->with('success', 'Table created successfully!');
     }
@@ -46,7 +43,6 @@ class TableTennisTableController extends Controller
         ]);
 
         $table->update($validated);
-
         return redirect()->route('tables.index')
             ->with('success', 'Table updated successfully!');
     }

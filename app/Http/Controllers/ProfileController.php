@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
@@ -63,29 +62,23 @@ class ProfileController extends Controller
                 'dimensions:min_width=100,min_height=100,max_width=2000,max_height=2000',
             ],
         ]);
-
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-
         try {
             $user = $request->user();
             $file = $request->file('avatar');
 
-           
             if ($user->avatar && Storage::disk('public')->exists('avatars/' . $user->avatar)) {
                 Storage::disk('public')->delete('avatars/' . $user->avatar);
             }
 
-            
             $fileName = 'avatar_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-            
-           
+
             $file->storeAs('avatars', $fileName, 'public');
 
-           
             $user->update(['avatar' => $fileName]);
 
             return redirect()->route('profile.edit')
